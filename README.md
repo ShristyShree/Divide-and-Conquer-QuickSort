@@ -108,6 +108,7 @@ quicksort-visualizer/
 ```bash
 # Open directly index.html
 
+
 ---
 
 ##  How the Visualization Demonstrates Divide & Conquer
