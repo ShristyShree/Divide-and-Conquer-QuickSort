@@ -1,10 +1,10 @@
-# ⚡ Quick Sort Visualizer — Divide & Conquer
+#  Quick Sort Visualizer — Divide & Conquer
 
 An interactive, step-by-step educational visualization of the Quick Sort algorithm, built with pure HTML, CSS, and Vanilla JavaScript using HTML5 Canvas.
 
 ---
 
-## 📖 Algorithm Overview
+##  Algorithm Overview
 
 **Quick Sort** is a highly efficient comparison-based sorting algorithm that employs the **Divide & Conquer** paradigm.
 
@@ -14,7 +14,7 @@ An interactive, step-by-step educational visualization of the Quick Sort algorit
 2. **Conquer** — Recursively apply Quick Sort to the left and right sub-arrays.
 3. **Combine** — No extra work needed; the array is sorted in place.
 
-### Partition (Lomuto Scheme)
+### Partition 
 
 ```
 QUICKSORT(A, low, high):
@@ -36,7 +36,7 @@ PARTITION(A, low, high):
 
 ---
 
-## 🔁 Recurrence Relation
+## Recurrence Relation
 
 ```
 T(n) = T(k) + T(n–k–1) + Θ(n)
@@ -54,17 +54,17 @@ T(n) = T(k) + T(n–k–1) + Θ(n)
 
 | Case         | Complexity    | When                              |
 |--------------|---------------|-----------------------------------|
-| 🟢 Best      | `O(n log n)`  | Pivot always splits array evenly  |
-| 🟡 Average   | `O(n log n)`  | Random/typical inputs             |
-| 🔴 Worst     | `O(n²)`       | Already sorted, pivot always min/max |
+|  Best      | `O(n log n)`  | Pivot always splits array evenly  |
+|  Average   | `O(n log n)`  | Random/typical inputs             |
+|  Worst     | `O(n²)`       | Already sorted, pivot always min/max |
 
-## 📦 Space Complexity
+##  Space Complexity
 
 `O(log n)` — due to recursive call stack depth
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Step-by-step bar visualization** with color-coded phases
 - **Live Recursion Tree** showing active recursive calls
@@ -80,11 +80,11 @@ T(n) = T(k) + T(n–k–1) + Θ(n)
 
 | Color  | Meaning                  |
 |--------|--------------------------|
-| 🔵 Blue   | Active range / DIVIDE phase |
-| 🔴 Red    | Pivot element               |
-| 🟣 Purple | Elements being compared     |
-| 🟠 Amber  | Elements being swapped      |
-| 🟢 Green  | Confirmed sorted position   |
+|  Blue   | Active range / DIVIDE phase |
+|  Red    | Pivot element               |
+|  Purple | Elements being compared     |
+|  Amber  | Elements being swapped      |
+|  Green  | Confirmed sorted position   |
 
 ---
 
@@ -101,7 +101,7 @@ quicksort-visualizer/
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 **No build step required.** Open directly in any modern browser:
 
@@ -119,7 +119,7 @@ python3 -m http.server 8080
 
 ---
 
-## 🎓 How the Visualization Demonstrates Divide & Conquer
+##  How the Visualization Demonstrates Divide & Conquer
 
 | Phase       | Color  | What you see                                                |
 |-------------|--------|-------------------------------------------------------------|
@@ -131,9 +131,3 @@ The **Recursion Tree** below the main canvas shows every sub-problem as a node. 
 
 ---
 
-## 🛠 Technical Notes
-
-- **Lomuto partition scheme** — uses the last element as pivot for simplicity.
-- All steps are **pre-computed** before animation starts, enabling step-back support.
-- The canvas is **responsive** — it redraws on window resize.
-- No frameworks, no bundlers, no dependencies beyond Google Fonts.
