@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Sort Visualizer — Divide & Conquer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <!-- Removed lightning bolt icon -->
+        <div>
+          <h1 class="site-title">Quick Sort Visualizer</h1>
+          <span class="site-subtitle">Divide &amp; Conquer</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-blue">Divide</span>
+        <span class="badge badge-orange">Conquer</span>
+        <span class="badge badge-green">Combine</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- ───── LEFT PANEL ───── -->
+    <aside class="panel panel-left">
+
+      <section class="card">
+        <h2 class="card-title">Algorithm</h2>
+        <p class="algo-desc">
+          Quick Sort is a <strong>Divide &amp; Conquer</strong> sorting algorithm.
+          It picks a <em>pivot</em>, partitions the array around it, then
+          recursively sorts each side.
+        </p>
+        <div class="dc-phases">
+          <div class="phase phase-divide">
+            <span class="phase-dot"></span>
+            <div>
+              <strong>Divide</strong>
+              <p>Select pivot, partition array around it</p>
+            </div>
+          </div>
+          <div class="phase phase-conquer">
+            <span class="phase-dot"></span>
+            <div>
+              <strong>Conquer</strong>
+              <p>Recursively sort left &amp; right subarrays</p>
+            </div>
+          </div>
+          <div class="phase phase-combine">
+            <span class="phase-dot"></span>
+            <div>
+              <strong>Combine</strong>
+              <p>Array is sorted in place — no merging needed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Recurrence Relation</h2>
+        <div class="recurrence-box">
+          <div class="recurrence-main">T(n) = T(k) + T(n–k–1) + <span class="theta">Θ</span>(n)</div>
+          <div class="recurrence-legend">
+            <span><em>k</em> = elements left of pivot</span>
+            <span><em>n–k–1</em> = elements right of pivot</span>
+            <span><em>Θ(n)</em> = partitioning cost</span>
+          </div>
+        </div>
+        <!-- Added short explanation below recurrence -->
+        <p class="recurrence-note">
+          Each call partitions n elements in Θ(n) time, then recurses on two
+          sub-problems whose sizes add up to n–1. In the best case the pivot
+          splits the array evenly (k ≈ n/2), giving O(n log n). In the worst
+          case one side is always empty, giving O(n²).
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Time Complexity</h2>
+        <table class="complexity-table">
+          <thead>
+            <tr><th>Case</th><th>Complexity</th></tr>
+          </thead>
+          <tbody>
+            <tr class="best"><td>Best</td><td><code>O(n log n)</code></td></tr>
+            <tr class="avg"><td>Average</td><td><code>O(n log n)</code></td></tr>
+            <tr class="worst"><td>Worst</td><td><code>O(n²)</code></td></tr>
+            <tr><td>Space</td><td><code>O(log n)</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </aside>
+
+    <!-- ───── CENTER PANEL ───── -->
+    <section class="panel panel-center">
+
+      <div class="canvas-wrapper">
+        <div class="canvas-header">
+          <span class="canvas-label">Array Visualization</span>
+          <div class="legend">
+            <span class="leg-item"><span class="leg-dot pivot-color"></span>Pivot</span>
+            <span class="leg-item"><span class="leg-dot compare-color"></span>Comparing</span>
+            <span class="leg-item"><span class="leg-dot swap-color"></span>Swapping</span>
+            <span class="leg-item"><span class="leg-dot sorted-color"></span>Sorted</span>
+            <span class="leg-item"><span class="leg-dot active-color"></span>Active Range</span>
+          </div>
+        </div>
+        <canvas id="mainCanvas"></canvas>
+        <div class="step-message" id="stepMessage">Press Play or use controls to begin visualization</div>
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="progress-label" id="progressLabel">0 / 0</span>
+        </div>
+      </div>
+
+      <!-- Reduced gap between visualization and tree via CSS class -->
+      <div class="tree-wrapper">
+        <div class="canvas-header">
+          <span class="canvas-label">Recursion Tree</span>
+          <span class="tree-hint">Active node highlighted in orange</span>
+        </div>
+        <canvas id="treeCanvas"></canvas>
+      </div>
+
+    </section>
+
+    <!-- ───── RIGHT PANEL ───── -->
+    <aside class="panel panel-right">
+
+      <section class="card">
+        <h2 class="card-title">Playback</h2>
+        <div class="playback-controls">
+          <button class="btn btn-icon" id="btnReset" title="Reset (R)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+          <button class="btn btn-icon" id="btnStepBack" title="Step Back (←)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+          </button>
+          <button class="btn btn-primary btn-play" id="btnPlay" title="Play/Pause (Space)">
+            <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <button class="btn btn-icon" id="btnStepFwd" title="Step Forward (→)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="card stats-card">
+        <h2 class="card-title">Runtime Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Comparisons</span>
+            <span class="stat-value" id="stat-comparisons">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Swaps</span>
+            <span class="stat-value" id="stat-swaps">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Recursion Depth</span>
+            <span class="stat-value" id="stat-depth">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Step</span>
+            <span class="stat-value" id="stat-step">0</span>
+          </div>
+          <div class="stat-item stat-wide">
+            <span class="stat-label">Total Steps</span>
+            <span class="stat-value" id="stat-total">—</span>
+          </div>
+          <div class="stat-item stat-wide">
+            <span class="stat-label">Current Phase</span>
+            <span class="stat-value phase-value" id="stat-phase">—</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Speed</h2>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Slow</span>
+            <input type="range" id="speedSlider" min="1" max="10" value="5" class="slider" />
+            <span class="slider-label">Fast</span>
+          </div>
+          <span class="slider-value" id="speedValue">500ms</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Array Size</h2>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">5</span>
+            <input type="range" id="sizeSlider" min="5" max="40" value="16" class="slider" />
+            <span class="slider-label">40</span>
+          </div>
+          <span class="slider-value" id="sizeValue">16 elements</span>
+        </div>
+        <button class="btn btn-secondary btn-full" id="btnRandomize">
+          Generate Random Array
+        </button>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Keyboard Shortcuts</h2>
+        <div class="shortcuts">
+          <div class="shortcut-row"><kbd>Space</kbd><span>Play / Pause</span></div>
+          <div class="shortcut-row"><kbd>→</kbd><span>Next Step</span></div>
+          <div class="shortcut-row"><kbd>←</kbd><span>Previous Step</span></div>
+          <div class="shortcut-row"><kbd>R</kbd><span>Reset</span></div>
+        </div>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <script src="quickSort.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
