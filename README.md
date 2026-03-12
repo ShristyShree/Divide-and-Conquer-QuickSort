@@ -50,7 +50,7 @@ T(n) = T(k) + T(n–k–1) + Θ(n)
 
 ---
 
-## ⏱ Time Complexity
+##  Time Complexity
 
 | Case         | Complexity    | When                              |
 |--------------|---------------|-----------------------------------|
