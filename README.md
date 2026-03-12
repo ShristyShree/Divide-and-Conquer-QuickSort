@@ -106,16 +106,7 @@ quicksort-visualizer/
 **No build step required.** Open directly in any modern browser:
 
 ```bash
-# Option 1: open directly
-open index.html
-
-# Option 2: simple local server (Python)
-python3 -m http.server 8080
-# then visit http://localhost:8080
-
-# Option 3: VS Code Live Server extension
-# Right-click index.html → "Open with Live Server"
-```
+# Open directly index.html
 
 ---
 
