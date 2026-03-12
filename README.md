@@ -88,7 +88,7 @@ T(n) = T(k) + T(n–k–1) + Θ(n)
 
 ---
 
-## 🗂 Project Structure
+##  Project Structure
 
 ```
 quicksort-visualizer/
